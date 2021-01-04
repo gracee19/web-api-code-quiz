@@ -1,0 +1,31 @@
+.highscore{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    color: white;
+}
+.thirty-countdown{
+    font-size: 30px;
+    color: white;
+    display:inline;
+    
+}
+*{
+    text-align: center;
+    padding: 15px 25px 0 25px;
+}
+h1{
+    color: lightskyblue;
+}
+p1{
+    font-size: 20px;
+}
+footer {
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+}
+
+body {
+  padding: 20px;
+  text-align: right;
+}
