@@ -1,10 +1,11 @@
-.highscore{
+#highscore{
     font-family: 'Courier New', Courier, monospace;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
 }
-.thirty-countdown{
-    font-size: 30px;
+#timer{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
     color: white;
     display:inline;
     
@@ -29,3 +30,48 @@ body {
   padding: 20px;
   text-align: right;
 }
+#go-back-btn {
+    display: flex;
+}
+
+ol{
+    padding: 25px;
+}
+
+#submit-row button{
+  height: 30px;
+}
+
+#submit-row input{
+  height: 30px;
+}
+
+#submit-row button{
+  line-height: 15px;
+}
+
+#frontPage-text {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 640px;
+    margin-top: 20vh;
+}
+
+#frontPage-text h1{
+    font-size: xxx-large;
+}
+
+#frontPage-text h2{
+    font-size: xx-large;
+    text-align: left;
+}
+
+#frontPage-text p {
+    font-size: larger;
+}
+
+#frontPage-text #answer-button {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+} 

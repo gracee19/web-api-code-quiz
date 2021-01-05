@@ -14,21 +14,21 @@
 <body>
     <!-- Navbar -->
     <nav class=" navbar navbar-dark bg-dark">
-        <a href="" id="highscore">Highscores</a>
-        <a href="" id="thirty-countdown">Time: </a>
+        <a href="" id="highscore" style="color: white;">Highscores</a>
+        <a href="" id="timer" style="color: white;"> Time: </a>
     </nav>
     <!-- Main page -->
-    <div class="container dark" id="start-page-text">              
+    <div class="container dark" id="frontPage-text">              
         <div class="row">
             <div class="col">
                 <h1>Coding Quiz</h1>
-                <p1> In this quiz, you will challenge to answer some coding questions within the time limit of 15 Minutes.
-                    <br>For every incorrect answer their will be a penalty of 3 seconds.</br>
-                    This quiz is worth of 3 points for every correct answer.
+                <p1> In this quiz, you will challenge to answer some coding questions within the time limit of 10 seconds per question.
+                    <br>For every incorrect answer their will be a penalty of 8 seconds.</br>
+                    The score that you'll get will be the time left in the quiz.
                 </p1>
                 <ol id="hlist"></ol>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-dark" type="button">Start Quiz</button>
+                    <button class="btn btn-dark" type="button" id="sbutton">Start Quiz</button>
                   </div>
                   
                 </div>
@@ -47,6 +47,7 @@
 
 
 
+      <script src="./assets/index.js"></script>
 </body>
 
 </html>
