@@ -1,33 +1,3 @@
-// function countdown( elementName, minutes, seconds )
-// {
-//     var element, endTime, hours, mins, msLeft, time;
-
-//     function twoDigits( n )
-//     {
-//         return (n <= 15 ? + n : n);
-//     }
-
-//     function updateTimer()
-//     {
-//         msLeft = endTime - (+new Date);
-//         if ( msLeft < 1000 ) {
-//             element.innerHTML = "Time is up!";
-//         } else {
-//             time = new Date( msLeft );
-//             hours = time.getUTCHours();
-//             mins = time.getUTCMinutes();
-//             element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
-//             setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
-//         }
-//     }
-
-//     element = document.getElementById( elementName );
-//     endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
-//     updateTimer();
-// }
-
-// countdown( "thirty-countdown", 15, 0 );
-
 const startPageText = document.getElementById("frontPage-text");
 const startButton = document.getElementById("sbutton");
 const viewHighscores = document.getElementById("highscore")
@@ -63,17 +33,17 @@ var qlist = [
   ];
 
 // Declare number of questions based off the number of indexes in our quesions.js file
-let qLength = qlist.length;
+var qLength = qlist.length;
 
 // Define iteration counter (i) for renderTitle and renderAnswerButtons's parameter arguments
 // We later update the value of it from within the renderAnswerButtons function using i++ and returning it's value  
-let i = 0;
+var i = 0;
 
-// Let time limit be 10 seconds per question.
-let timer = qLength * 5;
+// var time limit be 10 seconds per question.
+var timer = qLength * 10;
 
 // Initialize time variables
-let timeInterval, timeCheckVal;
+var timeInterval, timeCheckVal;
 
 // When we press the start quiz button
 startButton.addEventListener("click", function() { 
@@ -106,61 +76,62 @@ function renderTitle(titleIndex) {
 
     clearGameArea();
 
-    let qTitle = qlist[titleIndex].title;
-    let qTitleElement = document.createElement("h2"); 
-    let qTitleText = document.createTextNode(qTitle);                      
-    qTitleElement.appendChild(qTitleText);                                  
+    var qTitle = qlist[titleIndex].title;
+    var qTitleElement = document.createElement("h2"); 
+    var qTitvarext = document.createTextNode(qTitle);                      
+    qTitleElement.appendChild(qTitvarext);                                  
     startPageText.appendChild(qTitleElement);
 }
 
 function renderAnswerButtons(titleIndex) {
 
     // Create a new div with an ID of answer-buttons to put the individual buttons in
-    let answerBtnDiv = document.createElement("DIV"); 
+    var answerBtnDiv = document.createElement("DIV"); 
     answerBtnDiv.setAttribute("id", "answer-buttons");
     startPageText.appendChild(answerBtnDiv);
-    let answerButtons = document.getElementById("answer-buttons");
+    var answerButtons = document.getElementById("answer-buttons");
 
     // Loop through each index in the current object's "choices" array and create a button with text from the index
-    for (let choiceIterationCount = 0; choiceIterationCount < qlist[titleIndex].choices.length; choiceIterationCount++) {
+    for (var choiceIterationCount = 0; choiceIterationCount < qlist[titleIndex].choices.length; choiceIterationCount++) {
 
-        // Define variable that is selecting the index of the val of titleIndex, which starts at 0
-        // Ex: questions[0].choices[0] = strings
-        let btnContent = qlist[titleIndex].choices[choiceIterationCount];
-        let btnElement = document.createElement("button");
-        let btnText = document.createTextNode(btnContent);                      
         
-        // Create an ID attribute for our button. Used for styling.            
-        btnElement.setAttribute("id", "answer-button");
+        var btnContent = qlist[titleIndex].choices[choiceIterationCount];
+        var btnElement = document.createElement("button");
+        var btnText = document.createTextNode(btnContent);                      
+        
+        //attribute for the id.            
+        btnElement.setAttribute("id", "answer-button", "type",);
 
         btnElement.appendChild(btnText);
         answerButtons.appendChild(btnElement);
     }
-    // Updates the iteration count so each time you click an answer button it will render the next question
     i++
     return i;
 }
     
 function currentAnswer(titleIndex) {
-    // We subtract one because this function is called after renderAnswerButton is called which does i++
-    let answerKeyObj = qlist[titleIndex - 1].answer;
+    var answerKeyObj = qlist[titleIndex - 1].answer;
     return answerKeyObj;
 }
 
 function nextQuestion() {
-    // If the current iteration count is not equal to the number of questions in our list, then render the next question
     if (i != qLength) {
         renderTitle(i);
         renderAnswerButtons(i);
-        let answerKeyObj =  currentAnswer(i);
-        let answerButtons = document.getElementById("answer-buttons");
+        var answerKeyObj =  currentAnswer(i);
+        var answerButtons = document.getElementById("answer-buttons");
 
         answerButtons.addEventListener("click", function(event) {
-            let selectedButton = event.target;
+            var selectedButton = event.target;
             if(selectedButton.matches("button")) {
                 if(selectedButton.innerText !== answerKeyObj) {
                     alert("Wrong answer!");
-                    timer = timer - 8;
+                    if (timer > 5){
+                        timer = timer - 5;
+                    }
+                    else{
+                        timer = 0;
+                    }
                     nextQuestion();
                 }
                 else{
@@ -171,14 +142,14 @@ function nextQuestion() {
         });
 
     }else{
-        // RUN gameOver();
+        // gameOver() should run
         gameOver();
         
         }
     }
 
 function startTimer() {
-    timerText.innerText = "Time Remaining: " + timer;
+    timerText.innerText = "Time: " + timer + " sec";
     timer--;
     return timeInterval;
 }
@@ -197,112 +168,141 @@ function timeCheck() {
 // Create the leaderboard / high score screen after the game is over
 function enterScoreScreen() {
     clearGameArea();
-    timerText.innerText = "Time Remaining: 0";
+    timerText.innerText = "Time : 0 sec";
 
     // Make all done text
-    let highScoreElement = document.createElement("h2"); 
-    let highScoreText = document.createTextNode("All done!");                      
+    var highScoreElement = document.createElement("h2"); 
+    var highScoreText = document.createTextNode("All done!");                      
     highScoreElement.appendChild(highScoreText);                                  
     startPageText.appendChild(highScoreElement);
 
     // Make text above input field
-    let finalScoreElement = document.createElement("p"); 
+    var finalScoreElement = document.createElement("p"); 
     // Timer is always 1 second ahead, and this matches the time remaining number at the top right
     timer++;
-    let finalScoreText = document.createTextNode("Your final score is: " + timer);                      
+    var finalScoreText = document.createTextNode("Your final score is: " + timer);                      
     finalScoreElement.appendChild(finalScoreText);                                  
     startPageText.appendChild(finalScoreElement);
 
     // Make row for input field and submit button to go in
-    let submissionContainerElement = document.createElement("div"); 
-    let submissionContainerAttrClass = submissionContainerElement.setAttribute("class", "row");
-    let submissionContainerAttrId = submissionContainerElement.setAttribute("id", "submit-row");
+    var submissionContainerElement = document.createElement("div"); 
+    var submissionContainerAttrClass = submissionContainerElement.setAttribute("class", "row");
+    var submissionContainerAttrId = submissionContainerElement.setAttribute("id", "submit-row");
     startPageText.appendChild(submissionContainerElement);  
-    let submissionDiv = document.getElementById("submit-row");
+    var submissionDiv = document.getElementById("submit-row");
 
     // Enter name: text before input field
-    let enterNameElement = document.createElement("p"); 
-    let enterNameText = document.createTextNode("Enter initials: ");   
-    let enterNameAttr = enterNameElement.setAttribute("class", "col-md-3")                   
+    var enterNameElement = document.createElement("p"); 
+    var enterNameText = document.createTextNode("Enter initials: ");   
+    var enterNameAttr = enterNameElement.setAttribute("class", "col-lg-3")                   
     enterNameElement.appendChild(enterNameText);                                  
     submissionDiv.appendChild(enterNameElement);
 
-    // Make name input field
-    let inputElement = document.createElement("input"); 
-    inputElement.setAttribute("class", "col-md-6");
+    // Input field
+    var inputElement = document.createElement("input"); 
+    inputElement.setAttribute("class", "col-lg-3");
     inputElement.setAttribute("id", "name-input");      
     submissionDiv.appendChild(inputElement);
 
-    // Make submit button
-    let btnElement = document.createElement("button");
-    let btnText = document.createTextNode("Submit");                          
-    btnElement.setAttribute("class", "btn btn-primary col-md-3");
+    // Submit button
+    var btnElement = document.createElement("button");
+    var btnText = document.createTextNode("Submit");                          
+    btnElement.setAttribute("class", "btn btn-dark col-md-3");
     btnElement.appendChild(btnText);
     submissionDiv.appendChild(btnElement);
 
     nameInput = document.getElementById("name-input");
-    submitButton = document.getElementsByClassName("btn btn-primary col-md-3")[0];
-
+    submitButton = document.getElementsByClassName("btn btn-dark col-md-3")[0];
 
     renderHighscores();
+
+    homeButton = document.getElementsByClassName("btn btn-dark col-md-3");
 
     // Listener event for when we submit our name to the highscore list
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
+        event.target.disabled = true;
         if(nameInput.value === "") {
             return;
         }
 
         localStorage.setItem(nameInput.value, timer);
-        let li = document.createElement("li");
+        var li = document.createElement("li");
         li.textContent = nameInput.value + " - " + timer;
         startPageText.appendChild(li);
 
     });
+
+    //Make a Home Button
+    var homebtnEl = document.createElement("button");
+    var homebtnText = document.createTextNode("Home");                          
+    homebtnEl.setAttribute("class", "btn btn-dark col-md-3");
+    homebtnEl.setAttribute("id", "go-back-btn")
+    homebtnEl.appendChild(homebtnText);
+    submissionDiv.appendChild(homebtnEl);
+    
+    var homeBut = document.getElementById("go-back-btn");
+
+    //home button listener
+    homeBut.addEventListener("click", function(){
+        var oK = confirm ("You sure you want to exit?");
+            if(oK){
+                alert ("Your score will not be saved.");
+            }
+            else{
+                alert("Please submit your score!");
+                return;
+            }
+        location.reload();
+    });  
 }
 
 // go through each item in localstorage and make an li for it and display on page
 function renderHighscores() {
-    let orderedList = document.createElement("ol");
+    var orderedList = document.createElement("ol");
     orderedList.setAttribute("id", "ordered-list");
     startPageText.appendChild(orderedList);
-    for (let i = 0; i < localStorage.length; i++){
-        let orderedListLocation = document.getElementById("ordered-list");
+    for (var i = 0; i < localStorage.length; i++){
+        var orderedListLocation = document.getElementById("ordered-list");
         console.log("i val: " + i);
-        let currentKey = Object.entries(localStorage); 
-        let currentScore = localStorage.getItem(localStorage.key(i));
-        let highScoreElement = document.createElement("li");
-        let highscoreText = document.createTextNode(currentKey[i]);
+        var currentKey = Object.entries(localStorage); 
+        var currentScore = localStorage.getItem(localStorage.key(i));
+        var highScoreElement = document.createElement("li");
+        var highscoreText = document.createTextNode(currentKey[i]);
         highScoreElement.appendChild(highscoreText);
         orderedListLocation.appendChild(highScoreElement);
     }
+    
 }
 
 // To view the highscores, but not update them like enterScoreScreen
 function viewHighScoresScreen() {
     clearGameArea();
     // Make highschore text
-    let highScoreElement = document.createElement("h2"); 
-    let highScoreText = document.createTextNode("Highscores");                      
+    var highScoreElement = document.createElement("h2"); 
+    var highScoreText = document.createTextNode("Highscores");                      
     highScoreElement.appendChild(highScoreText);                                  
     startPageText.appendChild(highScoreElement);
 
-    let btnElement = document.createElement("button");
-    let btnText = document.createTextNode("Go Back");                          
-    btnElement.setAttribute("class", "btn btn-primary");
+    
+
+    var btnElement = document.createElement("button");
+    var btnText = document.createTextNode("Go Back");                          
+    btnElement.setAttribute("class", "btn btn-dark col-md-3");
     btnElement.setAttribute("id", "go-back-btn")
     btnElement.appendChild(btnText);
     startPageText.appendChild(btnElement);
 
-    let clearBtnEl = document.createElement("button");
-    let clearBtntext = document.createTextNode("Clear");                          
-    clearBtnEl.setAttribute("class", "btn btn-warning");
-    clearBtnEl.setAttribute("id", "go-back-btn")
+    var goBackButton = document.getElementById("go-back-btn");
+    
+    clearButton = document.getElementsByClassName("btn btn-dark")[0];
+    
+    var clearBtnEl = document.createElement("button");
+    var clearBtntext = document.createTextNode("Clear");                          
+    clearBtnEl.setAttribute("class", "btn btn-dark col-md-3");
+    clearBtnEl.setAttribute("id", "clear-btn")
     clearBtnEl.appendChild(clearBtntext);
-    startPageText.appendChild(clearBtnEl);
-
-    clearButton = document.getElementsByClassName("btn btn-warning")[0];
-    let goBackButton = document.getElementById("go-back-btn")
+    submissionDiv.appendChild(clearBtnEl);
 
     goBackButton.addEventListener("click", function() {
         location.reload();
@@ -310,30 +310,15 @@ function viewHighScoresScreen() {
 
     clearButton.addEventListener("click", function(event) {
         event.preventDefault();
-        console.log("CLEAR BUTTON EVENT")
+        // console.log("CLEAR BUTTON EVENT")
         localStorage.clear();
         renderHighscores();
         viewHighScoresScreen();
     });
 }
 
-// function sortLocalStorage(){
-//     debugger;
-//     if(localStorage.length > 0){
-//        localStorageArr = [];
-//        for (let i = 0; i < localStorage.length; i++){
-//            localStorageArr[i] = localStorage.key(i)+localStorage.getItem(localStorage.key(i));
-//        }
-//     }
-//     let sortedArray = localStorageArr.sort(function(a, b) {
-//         return b - a
-//     }); 
-//     return sortedArray;
-//  }
-
 function gameOver() {
     clearGameArea();
     myStopFunction();
     enterScoreScreen();
 }
-
