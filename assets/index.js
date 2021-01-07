@@ -32,20 +32,17 @@ var qlist = [
     ///etc.
   ];
 
-// Declare number of questions based off the number of indexes in our quesions.js file
+// Declaration of number of questions based on our qlist above
 var qLength = qlist.length;
-
-// Define iteration counter (i) for renderTitle and renderAnswerButtons's parameter arguments
-// We later update the value of it from within the renderAnswerButtons function using i++ and returning it's value  
 var i = 0;
 
-// var time limit be 10 seconds per question.
+//set time limit to 10 sec per question
 var timer = qLength * 10;
 
 // Initialize time variables
 var timeInterval, timeCheckVal;
 
-// When we press the start quiz button
+// Listener to the start button
 startButton.addEventListener("click", function() { 
     timeInterval = setInterval(startTimer, 1000);
     timeCheckVal = setInterval(timeCheck, 1000);
@@ -59,7 +56,6 @@ startButton.addEventListener("click", function() {
 });
 
 viewHighscores.addEventListener("click", function(e) {
-    // Keeps page from reloading on click and running through the whole quiz.js again
     e.preventDefault();
     viewHighScoresScreen();
     renderHighscores();
@@ -85,13 +81,12 @@ function renderTitle(titleIndex) {
 
 function renderAnswerButtons(titleIndex) {
 
-    // Create a new div with an ID of answer-buttons to put the individual buttons in
     var answerBtnDiv = document.createElement("DIV"); 
     answerBtnDiv.setAttribute("id", "answer-buttons");
     startPageText.appendChild(answerBtnDiv);
     var answerButtons = document.getElementById("answer-buttons");
 
-    // Loop through each index in the current object's "choices" array and create a button with text from the index
+    // Loop for all the choices and set button in each of the choices
     for (var choiceIterationCount = 0; choiceIterationCount < qlist[titleIndex].choices.length; choiceIterationCount++) {
 
         
@@ -165,7 +160,7 @@ function timeCheck() {
     }
 }
 
-// Create the leaderboard / high score screen after the game is over
+//Leaderboard for highscore & high score screen after the game is over
 function enterScoreScreen() {
     clearGameArea();
     timerText.innerText = "Time : 0 sec";
@@ -176,7 +171,7 @@ function enterScoreScreen() {
     highScoreElement.appendChild(highScoreText);                                  
     startPageText.appendChild(highScoreElement);
 
-    // Make text above input field
+    // Input field
     var finalScoreElement = document.createElement("p"); 
     // Timer is always 1 second ahead, and this matches the time remaining number at the top right
     timer++;
@@ -236,7 +231,7 @@ function enterScoreScreen() {
     //Make a Home Button
     var homebtnEl = document.createElement("button");
     var homebtnText = document.createTextNode("Home");                          
-    homebtnEl.setAttribute("class", "btn btn-dark col-md-3");
+    homebtnEl.setAttribute("class", "btn btn-secondary col-md-3");
     homebtnEl.setAttribute("id", "go-back-btn")
     homebtnEl.appendChild(homebtnText);
     submissionDiv.appendChild(homebtnEl);
@@ -283,38 +278,37 @@ function viewHighScoresScreen() {
     var highScoreText = document.createTextNode("Highscores");                      
     highScoreElement.appendChild(highScoreText);                                  
     startPageText.appendChild(highScoreElement);
-
     
 
     var btnElement = document.createElement("button");
     var btnText = document.createTextNode("Go Back");                          
-    btnElement.setAttribute("class", "btn btn-dark col-md-3");
+    btnElement.setAttribute("class", "btn btn-secondary col-md-6");
     btnElement.setAttribute("id", "go-back-btn")
     btnElement.appendChild(btnText);
     startPageText.appendChild(btnElement);
 
-    var goBackButton = document.getElementById("go-back-btn");
-    
-    clearButton = document.getElementsByClassName("btn btn-dark")[0];
-    
     var clearBtnEl = document.createElement("button");
     var clearBtntext = document.createTextNode("Clear");                          
     clearBtnEl.setAttribute("class", "btn btn-dark col-md-3");
-    clearBtnEl.setAttribute("id", "clear-btn")
+    clearBtnEl.setAttribute("id", "go-back-btn")
     clearBtnEl.appendChild(clearBtntext);
-    submissionDiv.appendChild(clearBtnEl);
+    startPageText.appendChild(clearBtnEl);
 
-    goBackButton.addEventListener("click", function() {
+    clearButton = document.getElementsByClassName("btn btn-dark col-md-3")[0];
+    var goBackButton = document.getElementById("go-back-btn");
+
+    goBackButton.addEventListener("click", function(){
         location.reload();
     });
 
     clearButton.addEventListener("click", function(event) {
-        event.preventDefault();
-        // console.log("CLEAR BUTTON EVENT")
+        event.preventDefault
+        console.log("CLEAR BUTTON EVENT")
         localStorage.clear();
         renderHighscores();
         viewHighScoresScreen();
     });
+    
 }
 
 function gameOver() {
