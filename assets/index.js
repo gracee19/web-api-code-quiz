@@ -199,22 +199,22 @@ function enterScoreScreen() {
     inputElement.setAttribute("id", "name-input");      
     submissionDiv.appendChild(inputElement);
 
-    // Submit button
+    // Save button
     var btnElement = document.createElement("button");
-    var btnText = document.createTextNode("Submit");                          
+    var btnText = document.createTextNode("Save");                          
     btnElement.setAttribute("class", "btn btn-dark col-md-3");
     btnElement.appendChild(btnText);
     submissionDiv.appendChild(btnElement);
 
     nameInput = document.getElementById("name-input");
-    submitButton = document.getElementsByClassName("btn btn-dark col-md-3")[0];
+    saveButton = document.getElementsByClassName("btn btn-dark col-md-3")[0];
 
     renderHighscores();
 
     homeButton = document.getElementsByClassName("btn btn-dark col-md-3");
 
     // Listener event for when we submit our name to the highscore list
-    submitButton.addEventListener("click", function(event) {
+    saveButton.addEventListener("click", function(event) {
         event.preventDefault();
         event.target.disabled = true;
         if(nameInput.value === "") {
@@ -231,7 +231,7 @@ function enterScoreScreen() {
     //Make a Home Button
     var homebtnEl = document.createElement("button");
     var homebtnText = document.createTextNode("Home");                          
-    homebtnEl.setAttribute("class", "btn btn-secondary col-md-3");
+    homebtnEl.setAttribute("class", "btn btn-outline-dark col-md-3");
     homebtnEl.setAttribute("id", "go-back-btn")
     homebtnEl.appendChild(homebtnText);
     submissionDiv.appendChild(homebtnEl);
@@ -242,7 +242,7 @@ function enterScoreScreen() {
     homeBut.addEventListener("click", function(){
         var oK = confirm ("You sure you want to exit?");
             if(oK){
-                alert ("Your score will not be saved.");
+                alert ("Submit your score. If not your score will not be saved.");
             }
             else{
                 alert("Please submit your score!");
@@ -281,8 +281,8 @@ function viewHighScoresScreen() {
     
 
     var btnElement = document.createElement("button");
-    var btnText = document.createTextNode("Go Back");                          
-    btnElement.setAttribute("class", "btn btn-secondary col-md-6");
+    var btnText = document.createTextNode("Home");                          
+    btnElement.setAttribute("class", "btn btn-outline-dark col-md-6");
     btnElement.setAttribute("id", "go-back-btn")
     btnElement.appendChild(btnText);
     startPageText.appendChild(btnElement);
@@ -295,9 +295,9 @@ function viewHighScoresScreen() {
     startPageText.appendChild(clearBtnEl);
 
     clearButton = document.getElementsByClassName("btn btn-dark col-md-3")[0];
-    var goBackButton = document.getElementById("go-back-btn");
+    var homeButton = document.getElementById("go-back-btn");
 
-    goBackButton.addEventListener("click", function(){
+    homeButton.addEventListener("click", function(){
         location.reload();
     });
 
